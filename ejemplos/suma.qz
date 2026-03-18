@@ -1,7 +1,7 @@
 consola.mostrar("Suma de dos numeros")
 
-entero a = 15
-entero b = 5
+entero a = 10
+entero b = 2
 entero suma = a + b
 entero resta = a - b
 entero mult = a * b

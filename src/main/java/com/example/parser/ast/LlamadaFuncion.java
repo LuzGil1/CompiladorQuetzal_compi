@@ -3,7 +3,7 @@ package com.example.parser.ast;
 import java.util.List;
 
 // Representa una llamada a función como consola.mostrar(...)
-public class LlamadaFuncion extends Nodo {
+public class LlamadaFuncion extends Expresion {
     private String objeto;         // "consola"
     private String metodo;         // "mostrar"
     private List<Expresion> argumentos;

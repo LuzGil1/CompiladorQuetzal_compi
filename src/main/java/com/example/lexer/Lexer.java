@@ -51,7 +51,7 @@ public class Lexer {
             avanzar();
         }
 
-        return new Token(TipoToken.NUMERO, numero.toString(), lineaInicio);
+        return new Token(TipoToken.LITERAL_NUMERO, numero.toString(), lineaInicio);
     }
 
     // Leer un identificador o palabra reservada
@@ -71,7 +71,13 @@ public class Lexer {
         TipoToken tipo;
         switch (valor) {
             case "entero":
-                tipo = TipoToken.ENTERO;
+                tipo = TipoToken.TIPO_ENTERO;  // ← Actualizar
+                break;
+            case "numero":                      // ← AGREGAR
+                tipo = TipoToken.TIPO_NUMERO;
+                break;
+            case "texto":                       // ← AGREGAR
+                tipo = TipoToken.TIPO_TEXTO;
                 break;
             case "consola":
                 tipo = TipoToken.CONSOLA;
@@ -100,7 +106,7 @@ public class Lexer {
             avanzar(); // Saltar la comilla final "
         }
 
-        return new Token(TipoToken.STRING, string.toString(), lineaInicio);
+        return new Token(TipoToken.LITERAL_STRING, string.toString(), lineaInicio);
     }
 
     // Obtener el siguiente token
@@ -128,7 +134,12 @@ public class Lexer {
 
             // Identificadores y palabras reservadas
             if (Character.isLetter(caracterActual) || caracterActual == '_') {
+                if (caracterActual == 't' && verSiguiente() == '"') {
+                    avanzar(); // saltar la 't'
+                    return leerStringInterpolado();
+                }
                 return leerIdentificador();
+
             }
 
             // Strings
@@ -163,6 +174,9 @@ public class Lexer {
                 case '.':
                     avanzar();
                     return new Token(TipoToken.PUNTO, ".", lineaActual);
+                case ':':                                                          // ← AGREGAR
+                    avanzar();                                                     // ← AGREGAR
+                    return new Token(TipoToken.DOS_PUNTOS, ":", lineaActual);     // ← AGREGAR
                 default:
                     throw new RuntimeException("Caracter no reconocido: '" + caracterActual + "' en línea " + linea);
             }
@@ -183,5 +197,24 @@ public class Lexer {
         tokens.add(token); // Agregar el EOF
 
         return tokens;
+    }
+
+    // Leer un string con interpolación t"..."
+    private Token leerStringInterpolado() {
+        StringBuilder string = new StringBuilder();
+        int lineaInicio = linea;
+
+        avanzar(); // Saltar la comilla inicial "
+
+        while (caracterActual != '"' && caracterActual != '\0') {
+            string.append(caracterActual);
+            avanzar();
+        }
+
+        if (caracterActual == '"') {
+            avanzar(); // Saltar la comilla final "
+        }
+
+        return new Token(TipoToken.STRING_INTERPOLADO, string.toString(), lineaInicio);
     }
 }

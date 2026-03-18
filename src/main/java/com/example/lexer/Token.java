@@ -1,8 +1,8 @@
 package com.example.lexer;
 
 public class Token {
-    private TipoToken tipo;
-    private String valor;
+    private TipoToken tipo;  //tipotoken.entero
+    private String valor;  //
     private int linea;
 
     public Token(TipoToken tipo, String valor, int linea) {

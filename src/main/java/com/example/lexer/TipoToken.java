@@ -2,27 +2,31 @@ package com.example.lexer;
 
 public enum TipoToken {
     // Palabras reservadas
-    ENTERO,           // entero
-    CONSOLA,          // consola (nuevo)
+    TIPO_NUMERO,
+    TIPO_TEXTO,
+    TIPO_ENTERO,
+    CONSOLA,
 
     // Identificadores y literales
-    IDENTIFICADOR,    // nombres de variables: a, b, suma
-    NUMERO,           // números: 1, 2, 3, 456
-    STRING,           // cadenas: "Hola mundo"
+    IDENTIFICADOR,
+    LITERAL_NUMERO,   // 42, 3.14
+    LITERAL_STRING,
+    STRING_INTERPOLADO,
 
     // Operadores
-    IGUAL,            // =
-    MAS,              // +
-    MENOS,            // -
-    MULTIPLICACION,   // *
-    DIVISION,         // /
+    IGUAL,
+    MAS,
+    MENOS,
+    MULTIPLICACION,
+    DIVISION,
 
     // Símbolos
-    PARENTESIS_IZQ,   // (
-    PARENTESIS_DER,   // )
-    PUNTO,            // .
+    PARENTESIS_IZQ,
+    PARENTESIS_DER,
+    PUNTO,
+    DOS_PUNTOS,
 
     // Especiales
-    NUEVA_LINEA,      // salto de línea
-    EOF               // fin del archivo
+    NUEVA_LINEA,
+    EOF
 }
